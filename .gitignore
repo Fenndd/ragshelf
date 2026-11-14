@@ -1,0 +1,74 @@
+# Local environment values; examples must contain no real secrets.
+.env
+.env.*
+!.env.example
+
+# Personal Claude Code overrides, not shared project instructions.
+.claude/settings.local.json
+CLAUDE.local.md
+# Temporary isolated worktrees created by Claude Code sessions and subagents.
+.claude/worktrees/
+
+# Personal Obsidian vault settings and window layout.
+.obsidian/
+
+# Operating-system metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Project-local Python interpreter, virtual environments, bytecode, and tool caches.
+/.python/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# IDE settings (contain personal paths and window state).
+.idea/
+.vscode/
+
+# Downloaded model weights, model caches, and NLTK data; fetched again, never published.
+/models/
+# Project-local third-party binaries (llama.cpp server).
+/.tools/
+
+# Documents and everything derived from them (extracted text, chunks,
+# embeddings, indexes, experiment logs). They contain third-party copyrighted
+# material and must never be published. Only the layout description is tracked.
+/data/*
+!/data/README.md
+
+# Upload written by the Streamlit app at runtime.
+/temp.pdf
+# Outputs that scripts write to the working directory: legacy reranking dumps
+# and the legacy vector store contain document text.
+/reranked_*.json
+/faiss.index
+/chunks.pkl
+
+# Safety net anywhere in the tree: documents, model weights, and embedding
+# arrays are never published. Allow a synthetic test fixture explicitly with
+# a `!path` line below if one is ever needed.
+*.pdf
+*.epub
+*.djvu
+*.gguf
+*.safetensors
+*.npy
+
+# Local secrets and state of tools.
+.streamlit/secrets.toml
+.gradio/
+
+# Logs and test/coverage output.
+*.log
+.coverage
+htmlcov/

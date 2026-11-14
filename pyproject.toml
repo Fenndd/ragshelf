@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ragshelf"
+version = "0.0.0"
+description = "Retrieval-augmented generation over a personal library of text documents."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.14"
+# Direct imports of src/ragshelf and scripts/, unpinned.
+# The exact versions last installed are recorded in requirements.txt.
+dependencies = [
+    "faiss-cpu",
+    "hdbscan",
+    "langdetect",
+    "numpy",
+    "pdfplumber",
+    "pymupdf",
+    "python-dotenv",
+    "requests",
+    "scikit-learn",
+    "sentence-transformers",
+    "streamlit",
+    "tiktoken",
+    "torch",
+    "transformers",
+    # Installed for the selected model stack (docs/research/reports/);
+    # not yet imported by the code.
+    "bm25s",
+    "mineru[torch]",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
