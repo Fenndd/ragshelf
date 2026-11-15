@@ -23,8 +23,10 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `data/` | Local documents and derived data; not published. See [data/README.md](data/README.md). |
 | `models/` | Locally downloaded model weights and caches (MinerU, Hugging Face, GGUF, NLTK data); not published. |
 | `.tools/` | Project-local third-party binaries (llama.cpp `llama-server`); not published. |
-| `docs/decisions/` | Accepted technical decisions (ADRs), starting with the [model stack](docs/decisions/0001-model-stack.md). |
+| `docs/decisions/` | Technical decisions (ADRs): the [model stack](docs/decisions/0001-model-stack.md) (accepted) and the [pipeline architecture](docs/decisions/0002-pipeline-architecture.md) (accepted). |
 | `docs/research/` | Research notes and reports behind the decisions. |
+| `docs/requirements.md` | Confirmed product requirements. |
+| `ROADMAP.md`, `tasks/` | Planned milestones and task files ([format](docs/engineering/TASK_FORMAT.md)). |
 
 Code reads data paths relative to the repository root, so run scripts from there.
 
