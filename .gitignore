@@ -48,8 +48,8 @@ dist/
 
 # Upload written by the Streamlit app at runtime.
 /temp.pdf
-# Outputs that scripts write to the working directory: legacy reranking dumps
-# and the legacy vector store contain document text.
+# Outputs of the removed prototype scripts (reranking dumps, the old vector
+# store). They may still exist in an old checkout and contain document text.
 /reranked_*.json
 /faiss.index
 /chunks.pkl

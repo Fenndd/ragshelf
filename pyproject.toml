@@ -10,18 +10,16 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.14"
-# Direct imports of src/ragshelf and scripts/, unpinned.
+# Direct imports of src/ragshelf, unpinned.
 # The exact versions last installed are recorded in requirements.txt.
 dependencies = [
     "faiss-cpu",
-    "hdbscan",
     "langdetect",
     "numpy",
     "pdfplumber",
     "pymupdf",
     "python-dotenv",
     "requests",
-    "scikit-learn",
     "sentence-transformers",
     "streamlit",
     "tiktoken",

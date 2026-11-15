@@ -4,11 +4,11 @@ Updated: 2026-11-16
 
 ## Phase
 
-Planning complete; implementation not started. Requirements, an accepted pipeline architecture, and a roadmap of 21 tasks in 5 milestones exist. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)).
+Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)). [T001](tasks/T001-remove-dead-prototype-code.md) is `done`: accepted after independent review and user-approved dependency-check clarifications on 2026-11-16, and committed (not pushed). T002 is next; M1 is not complete.
 
 ## Done
 
-- Repository layout (`src/ragshelf/`, `scripts/`, `legacy/`, `data/`, `models/`), see [README.md](README.md).
+- Repository layout (`src/ragshelf/`, `data/`, `models/`), see [README.md](README.md).
 - Shared AI-assistant infrastructure for Claude Code and Codex: [AGENTS.md](AGENTS.md), `.agents/skills/`, `.claude/`, [docs/engineering/](docs/engineering/).
 - Project-local environment: Python 3.14.10 in `.python/`, `venv/` from [requirements.txt](requirements.txt), llama.cpp in `.tools/`.
 - Model stack selected, downloaded, and smoke-tested on the development PC: [docs/decisions/0001-model-stack.md](docs/decisions/0001-model-stack.md).
@@ -23,8 +23,8 @@ Planning complete; implementation not started. Requirements, an accepted pipelin
 - The cloud model: no request has been sent yet (no API key configured).
 - The full pipeline with the new models, the query-translation step, and retrieval quality on Russian/Slovak → English queries.
 - `lancedb` installation on Python 3.14 (abi3 Windows wheels exist on PyPI; not installed yet).
-- Existing ingestion: `scripts/process_sources.py` calls `split_references` with one argument where two are required, so it raises `TypeError` before processing any document (found by reading the code, not by running it).
-- Document processing and generation through the current code after the move to the package layout (imports and the Streamlit app's initial render were checked).
+- Document processing and generation through the remaining prototype code (only imports are checked; the Streamlit app's initial render was checked before T001). There is no ingestion entry point until T009.
+- Whether Python 3.15 is still blocked: `hdbscan` is removed, `faiss-cpu` remains until T009.
 
 ## Open decisions
 
@@ -40,4 +40,4 @@ Planning complete; implementation not started. Requirements, an accepted pipelin
 
 ## Next step
 
-Start T001 (ready), then T002 and T003. T004 needs the OpenRouter key; T005 needs the data-migration confirmation.
+Set T002 to `ready` in its task file and ROADMAP when taking it up, then implement the CLI entry point and test harness. Each task is committed as one commit after the user accepts it; push only when the user asks. T003 follows T002. T004 needs the OpenRouter key; T005 (M2) needs M1 accepted and the data-migration confirmation.

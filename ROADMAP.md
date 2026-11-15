@@ -13,7 +13,7 @@ Exit criteria:
 
 | Task | Title | Depends on | Status |
 | --- | --- | --- | --- |
-| [T001](tasks/T001-remove-dead-prototype-code.md) | Remove dead prototype code | — | ready |
+| [T001](tasks/T001-remove-dead-prototype-code.md) | Remove dead prototype code | — | done |
 | [T002](tasks/T002-cli-and-test-harness.md) | Add the CLI entry point and test harness | T001 | planned |
 | [T003](tasks/T003-typed-configuration.md) | Add typed configuration | T002 | planned |
 | [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | planned |

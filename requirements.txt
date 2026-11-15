@@ -2,8 +2,6 @@
 # Windows x64, torch built for CUDA 13.0. Resolved on 2026-11-14 from the
 # direct dependencies in pyproject.toml. Install with:
 #   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu130
-# The versions the prototype originally ran with (Python 3.11) are kept in
-# legacy/requirements-py311.txt.
 # Known overlap: onnxruntime (pulled by pymupdf) and onnxruntime-directml
 # (pulled by mineru) install the same module; the DirectML build must win so
 # MinerU gets GPU acceleration. Check with:
@@ -46,7 +44,6 @@ gradio==6.32.0
 gradio-client==2.7.2
 groovy==0.1.2
 h11==0.16.0
-hdbscan==0.8.44
 hf-gradio==0.4.1
 hf-xet==1.8.0
 httpcore==1.0.9
