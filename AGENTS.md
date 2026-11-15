@@ -20,7 +20,7 @@ Do not read all documentation automatically. Choose the relevant sources:
 
 | When | Where to look |
 | --- | --- |
-| Continuing work, handoff between sessions | `STATUS.md`, `ROADMAP.md` (once they exist), current diff |
+| Continuing work, handoff between sessions | [STATUS.md](STATUS.md), `ROADMAP.md` (once it exists), current diff |
 | Where code, scripts, data, and models live | [README.md](README.md) "Layout", [data/README.md](data/README.md) |
 | Choosing or changing models, parsers, or runtimes | [docs/decisions/](docs/decisions/) (start with [0001-model-stack.md](docs/decisions/0001-model-stack.md)) |
 | Creating or changing tasks, milestones, or the roadmap | [TASK_FORMAT.md](docs/engineering/TASK_FORMAT.md) |

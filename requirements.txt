@@ -8,6 +8,8 @@
 # (pulled by mineru) install the same module; the DirectML build must win so
 # MinerU gets GPU acceleration. Check with:
 #   python -c "import onnxruntime as o; print(o.get_available_providers())"
+# If DmlExecutionProvider is missing, reinstall the DirectML build:
+#   pip install --force-reinstall --no-deps onnxruntime-directml==1.24.4
 # It goes away when the PyMuPDF-based loader is replaced.
 accelerate==1.15.0
 aiofiles==25.1.0
