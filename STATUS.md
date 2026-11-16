@@ -4,7 +4,7 @@ Updated: 2026-11-16
 
 ## Phase
 
-Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)). [T001](tasks/T001-remove-dead-prototype-code.md) is `done`: accepted after independent review and user-approved dependency-check clarifications on 2026-11-16, and committed (not pushed). [T002](tasks/T002-cli-and-test-harness.md) is `done`: independent review on 2026-11-16 found all four acceptance criteria met, its one minor finding (T002-R1) is fixed, the user accepted the task, and it is committed (not pushed). T003 is next; M1 is not complete.
+Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)). [T001](tasks/T001-remove-dead-prototype-code.md) is `done`: accepted after independent review and user-approved dependency-check clarifications on 2026-11-16, and committed (not pushed). [T002](tasks/T002-cli-and-test-harness.md) is `done`: independent review on 2026-11-16 found all four acceptance criteria met, its one minor finding (T002-R1) is fixed, the user accepted the task, and it is committed (not pushed). [T003](tasks/T003-typed-configuration.md) is `done`: accepted by the user on 2026-11-16 and committed (not pushed). T004 is next; M1 is not complete.
 
 ## Done
 
@@ -19,6 +19,7 @@ Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMA
 - Roadmap and task files: [ROADMAP.md](ROADMAP.md), `tasks/T001`–`T021`.
 - T001: dead prototype code and `hdbscan` removed.
 - T002: `ragshelf` console script with placeholder subcommands `ingest`, `search`, `ask`, `eval`; pytest harness with the `slow` marker.
+- T003: typed configuration in `src/ragshelf/config.py` and `ragshelf.toml`, with a configuration hash and separate secrets.
 
 ## Not verified
 
@@ -42,4 +43,4 @@ Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMA
 
 ## Next step
 
-Take up T003 (typed configuration): set it to `in_progress` in its task file and ROADMAP, install `pydantic-settings` (named in ADR 0002), and implement `src/ragshelf/config.py`, `ragshelf.toml`, and `tests/test_config.py`. Each task is committed after acceptance; push only when the user asks. T004 needs the OpenRouter key; T005 (M2) needs M1 accepted and the data-migration confirmation.
+Take up T004 (LLM clients): set it to `in_progress` in its task file and ROADMAP. Before its real cloud request, ask the user to put the key into `.env` as `OPENROUTER_API_KEY`; never print, log, or commit it. The mocked unit tests and the local `llama-server` request do not need the key. `llama-server` needs the GPU alone. Each task is committed after acceptance; push only when the user asks. T004 needs the OpenRouter key; T005 (M2) needs M1 accepted and the data-migration confirmation.

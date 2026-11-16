@@ -15,7 +15,7 @@ Exit criteria:
 | --- | --- | --- | --- |
 | [T001](tasks/T001-remove-dead-prototype-code.md) | Remove dead prototype code | — | done |
 | [T002](tasks/T002-cli-and-test-harness.md) | Add the CLI entry point and test harness | T001 | done |
-| [T003](tasks/T003-typed-configuration.md) | Add typed configuration | T002 | planned |
+| [T003](tasks/T003-typed-configuration.md) | Add typed configuration | T002 | done |
 | [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | planned |
 
 ## M2 — Persistent incremental index

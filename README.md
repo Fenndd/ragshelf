@@ -18,6 +18,7 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `src/ragshelf/generation/` | Answer generation from retrieved chunks. |
 | `src/ragshelf/app/` | Streamlit user interface. |
 | `src/ragshelf/cli.py` | The `ragshelf` command-line interface; see [Commands](#commands). |
+| `src/ragshelf/config.py`, `ragshelf.toml` | Typed configuration and its file; see [Configuration](#configuration). |
 | `tests/` | pytest tests. |
 | `docs/engineering/` | Development process and AI-assistant policies. |
 | `data/` | Local documents and derived data; not published. See [data/README.md](data/README.md). |
@@ -47,6 +48,18 @@ Tests use pytest, installed by the `dev` extra (`pip install -e ".[dev]"`; alrea
 venv\Scripts\python.exe -m pytest           # fast tests; tests marked `slow` are deselected
 venv\Scripts\python.exe -m pytest -m slow   # tests that load real models
 ```
+
+## Configuration
+
+`src/ragshelf/config.py` defines every setting with its default: data and model paths, model IDs, chunking and retrieval parameters, and the cloud and local LLM routes. The defaults are the values decided in the ADRs. A value is taken from the first place that sets it:
+
+1. an environment variable `RAGSHELF_<SECTION>__<KEY>`, for example `RAGSHELF_RETRIEVAL__RRF_K=30`;
+2. [ragshelf.toml](ragshelf.toml) at the repository root, which lists every key commented out;
+3. the default.
+
+Unknown keys are errors. Relative paths are taken from the repository root, whatever the working directory is. `config_hash()` returns a SHA-256 of all settings and identifies a pipeline setup.
+
+Secrets are not settings: `load_secrets()` reads them from the process environment or `.env`, and they are not part of the hash. The prototype modules do not use this configuration yet; each is switched over by the task that replaces it.
 
 ## Dependencies
 

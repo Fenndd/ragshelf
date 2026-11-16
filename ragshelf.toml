@@ -1,0 +1,67 @@
+# ragshelf configuration. Read by src/ragshelf/config.py.
+#
+# Every key is optional. The commented values below are the defaults, taken
+# from docs/decisions/0001-model-stack.md and 0002-pipeline-architecture.md;
+# uncomment a line to change it. An unknown key is an error.
+#
+# Precedence: RAGSHELF_* environment variables, then this file, then the
+# defaults. Nested keys use a double underscore in the variable name, for
+# example RAGSHELF_RETRIEVAL__RRF_K=30.
+#
+# Relative paths are taken from the repository root.
+# Secrets never go here. The OpenRouter key belongs in .env.
+
+[paths]
+# library = "data/library"
+# cache = "data/cache"
+# index = "data/index"
+# traces = "data/traces"
+# eval = "data/eval"
+# models = "models"
+
+[models]
+# parser_tier = "standard"
+# mineru_home = "models/mineru"
+# hf_home = "models/hf"
+# embedder_id = "microsoft/harrier-oss-v1-0.6b"
+# embedder_path = "models/harrier-oss-v1-0.6b"
+# embedder_query_prompt = "web_search_query"
+# reranker_id = "Qwen/Qwen3-Reranker-0.6B"
+# reranker_path = "models/Qwen3-Reranker-0.6B"
+# local_llm_id = "bartowski/Qwen_Qwen3.5-9B-GGUF"
+# local_llm_path = "models/gguf/Qwen_Qwen3.5-9B-IQ4_XS.gguf"
+# llama_server_path = ".tools/llama.cpp/llama-server.exe"
+
+[chunking]
+# target_tokens = 512
+# max_tokens = 800
+# overlap_ratio = 0.10        # 0 to 0.15
+# min_section_tokens = 100
+
+[retrieval]
+# dense_top_k = 100
+# lexical_top_k = 100
+# rrf_k = 60
+# rerank_depth = 50
+# context_top_n = 8
+
+[llm]
+# route = "cloud"             # "cloud" or "local"
+
+[llm.cloud]
+# base_url = "https://openrouter.ai/api/v1"
+# model = "deepseek/deepseek-v4.1-flash-1017"
+# reasoning_effort = "none"
+# timeout_seconds = 60.0
+# max_retries = 3
+
+[llm.cloud.provider]
+# zdr = true
+# data_collection = "deny"
+# sort = "price"
+
+[llm.local]
+# base_url = "http://127.0.0.1:8081/v1"
+# enable_thinking = false
+# timeout_seconds = 120.0
+# max_retries = 1

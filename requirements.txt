@@ -1,7 +1,7 @@
 # Exact versions for the local venv: Python 3.14.10 (project-local in .python/),
 # Windows x64, torch built for CUDA 13.0. Resolved on 2026-11-14 from the
-# direct dependencies in pyproject.toml, including the `dev` extra (pytest,
-# added 2026-11-16). Install with:
+# direct dependencies in pyproject.toml, including the `dev` extra (pytest and
+# pydantic-settings were added on 2026-11-16). Install with:
 #   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu130
 # Known overlap: onnxruntime (pulled by pymupdf) and onnxruntime-directml
 # (pulled by mineru) install the same module; the DirectML build must win so
@@ -107,6 +107,7 @@ pyclipper==1.4.0
 pycparser==3.12
 pydantic==2.14.3
 pydantic-core==2.50.4
+pydantic-settings==2.16.3
 pydeck==0.9.3
 pydub==0.25.1
 pygments==2.21.0

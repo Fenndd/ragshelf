@@ -17,6 +17,8 @@ dependencies = [
     "langdetect",
     "numpy",
     "pdfplumber",
+    "pydantic",
+    "pydantic-settings",
     "pymupdf",
     "python-dotenv",
     "requests",
