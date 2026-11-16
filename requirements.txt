@@ -1,6 +1,7 @@
 # Exact versions for the local venv: Python 3.14.10 (project-local in .python/),
 # Windows x64, torch built for CUDA 13.0. Resolved on 2026-11-14 from the
-# direct dependencies in pyproject.toml. Install with:
+# direct dependencies in pyproject.toml, including the `dev` extra (pytest,
+# added 2026-11-16). Install with:
 #   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu130
 # Known overlap: onnxruntime (pulled by pymupdf) and onnxruntime-directml
 # (pulled by mineru) install the same module; the DirectML build must win so
@@ -53,6 +54,7 @@ httpx-retries==0.6.0
 httpx2==2.16.0
 huggingface-hub==2.4.0
 idna==3.20
+iniconfig==2.3.1
 itsdangerous==2.2.0
 jieba==0.42.1
 jinja2==3.1.6
@@ -97,6 +99,7 @@ pdfminer-six==20260107
 pdfplumber==0.11.10
 pillow==13.0.0
 pip==26.3
+pluggy==1.7.0
 protobuf==7.36.2
 psutil==7.2.2
 pyarrow==26.0.1
@@ -114,6 +117,7 @@ pymupdf4llm==2.1
 pypdf==7.1.0
 pypdfium2==5.15.2
 pypptx-with-oxml==1.0.3
+pytest==9.2.0
 python-dateutil==4.0.0
 python-docx==1.2.0
 python-dotenv==1.2.4

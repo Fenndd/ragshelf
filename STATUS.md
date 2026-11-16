@@ -4,7 +4,7 @@ Updated: 2026-11-16
 
 ## Phase
 
-Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)). [T001](tasks/T001-remove-dead-prototype-code.md) is `done`: accepted after independent review and user-approved dependency-check clarifications on 2026-11-16, and committed (not pushed). T002 is next; M1 is not complete.
+Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMAP.md)). [T001](tasks/T001-remove-dead-prototype-code.md) is `done`: accepted after independent review and user-approved dependency-check clarifications on 2026-11-16, and committed (not pushed). [T002](tasks/T002-cli-and-test-harness.md) is `done`: independent review on 2026-11-16 found all four acceptance criteria met, its one minor finding (T002-R1) is fixed, the user accepted the task, and it is committed (not pushed). T003 is next; M1 is not complete.
 
 ## Done
 
@@ -17,6 +17,8 @@ Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMA
 - Research on production RAG architecture: [docs/research/reports/Production RAG architecture.md](docs/research/reports/Production%20RAG%20architecture.md).
 - Pipeline architecture with a module-by-module review of the prototype, accepted 2026-11-16: [ADR 0002](docs/decisions/0002-pipeline-architecture.md).
 - Roadmap and task files: [ROADMAP.md](ROADMAP.md), `tasks/T001`–`T021`.
+- T001: dead prototype code and `hdbscan` removed.
+- T002: `ragshelf` console script with placeholder subcommands `ingest`, `search`, `ask`, `eval`; pytest harness with the `slow` marker.
 
 ## Not verified
 
@@ -40,4 +42,4 @@ Implementation started. Active milestone: M1 — Clean base ([ROADMAP.md](ROADMA
 
 ## Next step
 
-Set T002 to `ready` in its task file and ROADMAP when taking it up, then implement the CLI entry point and test harness. Each task is committed as one commit after the user accepts it; push only when the user asks. T003 follows T002. T004 needs the OpenRouter key; T005 (M2) needs M1 accepted and the data-migration confirmation.
+Take up T003 (typed configuration): set it to `in_progress` in its task file and ROADMAP, install `pydantic-settings` (named in ADR 0002), and implement `src/ragshelf/config.py`, `ragshelf.toml`, and `tests/test_config.py`. Each task is committed after acceptance; push only when the user asks. T004 needs the OpenRouter key; T005 (M2) needs M1 accepted and the data-migration confirmation.

@@ -17,6 +17,8 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `src/ragshelf/llm/` | LLM API client. |
 | `src/ragshelf/generation/` | Answer generation from retrieved chunks. |
 | `src/ragshelf/app/` | Streamlit user interface. |
+| `src/ragshelf/cli.py` | The `ragshelf` command-line interface; see [Commands](#commands). |
+| `tests/` | pytest tests. |
 | `docs/engineering/` | Development process and AI-assistant policies. |
 | `data/` | Local documents and derived data; not published. See [data/README.md](data/README.md). |
 | `models/` | Locally downloaded model weights and caches (MinerU, Hugging Face, GGUF, NLTK data); not published. |
@@ -26,7 +28,25 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `docs/requirements.md` | Confirmed product requirements. |
 | `ROADMAP.md`, `tasks/` | Planned milestones and task files ([format](docs/engineering/TASK_FORMAT.md)). |
 
-Code reads data paths relative to the repository root, so run it from there. There is no ingestion entry point at the moment: the prototype's script was removed, and `ragshelf ingest` is planned in [T009](tasks/T009-ingest-command.md).
+Code reads data paths relative to the repository root, so run it from there. Nothing ingests documents at the moment: the prototype's script was removed, and `ragshelf ingest` is implemented in [T009](tasks/T009-ingest-command.md).
+
+## Commands
+
+Run everything with the project's interpreter in `venv/`, from the repository root (PowerShell):
+
+```powershell
+venv\Scripts\ragshelf.exe --help        # the console script
+venv\Scripts\python.exe -m ragshelf --help   # the same through the module
+```
+
+The CLI has four subcommands: `ingest`, `search`, `ask`, and `eval`. They are placeholders for now: each prints "not implemented yet" and exits with code 2 until its task in [ROADMAP.md](ROADMAP.md) is done.
+
+Tests use pytest, installed by the `dev` extra (`pip install -e ".[dev]"`; already pinned in `requirements.txt`):
+
+```powershell
+venv\Scripts\python.exe -m pytest           # fast tests; tests marked `slow` are deselected
+venv\Scripts\python.exe -m pytest -m slow   # tests that load real models
+```
 
 ## Dependencies
 

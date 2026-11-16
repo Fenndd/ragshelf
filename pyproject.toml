@@ -31,5 +31,21 @@ dependencies = [
     "mineru[torch]",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[project.scripts]
+ragshelf = "ragshelf.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Tests marked `slow` load real models; run them with `pytest -m slow`.
+addopts = "--import-mode=importlib --strict-markers -m 'not slow'"
+markers = [
+    "slow: loads real models; deselected by default",
+]
