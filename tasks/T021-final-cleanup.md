@@ -8,7 +8,7 @@ area:
   - "pyproject.toml"
   - "requirements.txt"
   - "README.md"
-  - "data/README.md"
+  - "docs/data-layout.md"
   - "STATUS.md"
   - "src/ragshelf/**"
 ---
@@ -25,7 +25,7 @@ Leave no prototype code or unused dependency and make the documents describe the
 
 ## Scope
 
-In scope: Remove any remaining prototype module or unused package; regenerate `requirements.txt`; recheck whether Python 3.15 is now possible (record the result, do not upgrade); update README layout and commands, data/README, STATUS.
+In scope: Remove any remaining prototype module or unused package; regenerate `requirements.txt`; recheck whether Python 3.15 is now possible (record the result, do not upgrade); update README layout and commands, docs/data-layout.md, STATUS.
 
 Out of scope: Upgrading Python.
 
@@ -33,7 +33,7 @@ Out of scope: Upgrading Python.
 
 1. Every package in `pyproject.toml` is imported somewhere in `src/` (or is a documented runtime tool such as `mineru`).
 2. No module under `src/` is unreferenced by the CLI, the app, or tests.
-3. README and data/README match the tree.
+3. README and docs/data-layout.md match the tree.
 
 ## Checks
 

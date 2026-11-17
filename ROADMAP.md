@@ -16,7 +16,9 @@ Exit criteria:
 | [T001](tasks/T001-remove-dead-prototype-code.md) | Remove dead prototype code | — | done |
 | [T002](tasks/T002-cli-and-test-harness.md) | Add the CLI entry point and test harness | T001 | done |
 | [T003](tasks/T003-typed-configuration.md) | Add typed configuration | T002 | done |
-| [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | planned |
+| [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | review |
+
+T004 rework was committed locally on 2026-11-17: T004-REV-01, T004-REV-02, and T004-FOLLOWUP-01 are resolved; see [T004's resolution evidence](tasks/T004-llm-clients.md#rework-result--2026-11-17) and the preserved [original review](docs/reviews/T004-2026-11-16.md). T004 remains `review`, awaiting user acceptance; M1 is not accepted. The commit has not been pushed.
 
 ## M2 — Persistent incremental index
 
@@ -78,7 +80,7 @@ Goal: The Streamlit app works over the indexed library, the drafting mode exists
 Exit criteria:
 1. The Streamlit app answers a question over the library with clickable citations and shows ingest status.
 2. The drafting mode produces a paragraph with (Author, Year) citations taken from document metadata.
-3. `pyproject.toml` lists only imported packages; README, data/README, STATUS reflect the final layout.
+3. `pyproject.toml` lists only imported packages; README, docs/data-layout.md, STATUS reflect the final layout.
 
 | Task | Title | Depends on | Status |
 | --- | --- | --- | --- |

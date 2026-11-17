@@ -1,15 +1,16 @@
 # ragshelf configuration. Read by src/ragshelf/config.py.
 #
-# Every key is optional. The commented values below are the defaults, taken
-# from docs/decisions/0001-model-stack.md and 0002-pipeline-architecture.md;
-# uncomment a line to change it. An unknown key is an error.
+# Every key is optional. The commented values below repeat the defaults, which
+# are defined in src/ragshelf/config.py and come from the ADRs in
+# docs/decisions/ (0001, 0002, 0003); uncomment a line to change it. An unknown
+# key is an error.
 #
 # Precedence: RAGSHELF_* environment variables, then this file, then the
 # defaults. Nested keys use a double underscore in the variable name, for
 # example RAGSHELF_RETRIEVAL__RRF_K=30.
 #
 # Relative paths are taken from the repository root.
-# Secrets never go here. The OpenRouter key belongs in .env.
+# Secrets never go here. API keys belong in .env.
 
 [paths]
 # library = "data/library"
@@ -47,15 +48,25 @@
 
 [llm]
 # route = "cloud"             # "cloud" or "local"
+# cloud_provider = "deepseek" # "deepseek" or "openrouter"
 
-[llm.cloud]
+# DeepSeek platform, the default cloud provider. Key: DEEPSEEK_API_KEY.
+[llm.deepseek]
+# base_url = "https://api.deepseek.com"
+# model = "deepseek-flash"
+# thinking = "disabled"       # "enabled" or "disabled"
+# timeout_seconds = 60.0
+# max_retries = 3
+
+# OpenRouter, the alternative cloud provider. Key: OPENROUTER_API_KEY.
+[llm.openrouter]
 # base_url = "https://openrouter.ai/api/v1"
 # model = "deepseek/deepseek-v4.1-flash-1017"
 # reasoning_effort = "none"
 # timeout_seconds = 60.0
 # max_retries = 3
 
-[llm.cloud.provider]
+[llm.openrouter.provider]
 # zdr = true
 # data_collection = "deny"
 # sort = "price"

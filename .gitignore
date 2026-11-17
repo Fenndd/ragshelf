@@ -42,9 +42,8 @@ dist/
 
 # Documents and everything derived from them (extracted text, chunks,
 # embeddings, indexes, experiment logs). They contain third-party copyrighted
-# material and must never be published. Only the layout description is tracked.
-/data/*
-!/data/README.md
+# material and must never be published. The layout is documented in docs/data-layout.md.
+/data/
 
 # Upload written by the Streamlit app at runtime.
 /temp.pdf

@@ -15,14 +15,7 @@ from ragshelf.config import (
 )
 
 FAKE_KEY = "test-only-not-a-real-key"
-
-
-@pytest.fixture(autouse=True)
-def clean_environment(monkeypatch):
-    """Keep the developer's own overrides and credentials out of the tests."""
-    for name in list(os.environ):
-        if name.startswith("RAGSHELF_") or name == "OPENROUTER_API_KEY":
-            monkeypatch.delenv(name)
+KEY_VARIABLES = ["DEEPSEEK_API_KEY", "OPENROUTER_API_KEY"]
 
 
 @pytest.fixture
@@ -56,15 +49,21 @@ def test_defaults_carry_the_adr_values(no_toml):
         REPO_ROOT / ".tools" / "llama.cpp" / "llama-server.exe"
     )
     assert settings.llm.route == "cloud"
-    assert settings.llm.cloud.model == "deepseek/deepseek-v4.1-flash-1017"
-    assert settings.llm.cloud.reasoning_effort == "none"
-    assert settings.llm.cloud.provider.model_dump() == {
+    assert settings.llm.openrouter.model == "deepseek/deepseek-v4.1-flash-1017"
+    assert settings.llm.openrouter.reasoning_effort == "none"
+    assert settings.llm.openrouter.provider.model_dump() == {
         "zdr": True,
         "data_collection": "deny",
         "sort": "price",
     }
     assert settings.llm.local.base_url == "http://127.0.0.1:8081/v1"
     assert settings.llm.local.enable_thinking is False
+
+    # ADR 0003.
+    assert settings.llm.cloud_provider == "deepseek"
+    assert settings.llm.deepseek.base_url == "https://api.deepseek.com"
+    assert settings.llm.deepseek.model == "deepseek-flash"
+    assert settings.llm.deepseek.thinking == "disabled"
 
     # ADR 0002.
     assert settings.paths.library == REPO_ROOT / "data" / "library"
@@ -147,9 +146,13 @@ def leaf_overrides(prefix, value):
             yield dotted, str(item) + "-changed"
         elif dotted == "llm.route":
             yield dotted, "local"
-        elif dotted == "llm.cloud.provider.data_collection":
+        elif dotted == "llm.cloud_provider":
+            yield dotted, "openrouter"
+        elif dotted == "llm.deepseek.thinking":
+            yield dotted, "enabled"
+        elif dotted == "llm.openrouter.provider.data_collection":
             yield dotted, "allow"
-        elif dotted == "llm.cloud.provider.sort":
+        elif dotted == "llm.openrouter.provider.sort":
             yield dotted, "latency"
         else:
             yield dotted, item + "-changed"
@@ -171,16 +174,17 @@ def test_hash_changes_when_any_setting_changes(no_toml, monkeypatch):
         seen.add(digest)
 
 
-def test_secrets_stay_out_of_the_hash_and_repr(tmp_path, no_toml, monkeypatch):
+@pytest.mark.parametrize("variable", KEY_VARIABLES)
+def test_secrets_stay_out_of_the_hash_and_repr(tmp_path, no_toml, monkeypatch, variable):
     env_file = tmp_path / ".env"
-    env_file.write_text(f"OPENROUTER_API_KEY={FAKE_KEY}\n", encoding="utf-8")
+    env_file.write_text(f"{variable}={FAKE_KEY}\n", encoding="utf-8")
     without_key = config_hash(load_settings(no_toml))
 
     secrets = load_secrets(env_file)
-    monkeypatch.setenv("OPENROUTER_API_KEY", FAKE_KEY)
+    monkeypatch.setenv(variable, FAKE_KEY)
     settings = load_settings(no_toml)
 
-    assert secrets.openrouter_api_key.get_secret_value() == FAKE_KEY
+    assert getattr(secrets, variable.lower()).get_secret_value() == FAKE_KEY
     assert FAKE_KEY not in repr(secrets)
     assert FAKE_KEY not in str(secrets)
     assert FAKE_KEY not in repr(settings)
@@ -188,17 +192,29 @@ def test_secrets_stay_out_of_the_hash_and_repr(tmp_path, no_toml, monkeypatch):
     assert config_hash(settings) == without_key
 
 
-def test_secrets_cannot_be_set_in_toml(tmp_path):
+def test_each_key_is_read_from_its_own_variable(tmp_path):
+    env_file = tmp_path / ".env"
+    env_file.write_text("DEEPSEEK_API_KEY=deepseek-fake\n", encoding="utf-8")
+
+    secrets = load_secrets(env_file)
+
+    assert secrets.deepseek_api_key.get_secret_value() == "deepseek-fake"
+    assert secrets.openrouter_api_key is None
+
+
+@pytest.mark.parametrize("variable", KEY_VARIABLES)
+def test_secrets_cannot_be_set_in_toml(tmp_path, variable):
     with pytest.raises(ValidationError):
-        load_settings(write_toml(tmp_path, f'openrouter_api_key = "{FAKE_KEY}"\n'))
+        load_settings(write_toml(tmp_path, f'{variable.lower()} = "{FAKE_KEY}"\n'))
 
 
-def test_a_missing_or_empty_key_is_none(tmp_path):
+@pytest.mark.parametrize("variable", KEY_VARIABLES)
+def test_a_missing_or_empty_key_is_none(tmp_path, variable):
     empty = tmp_path / ".env"
-    empty.write_text("OPENROUTER_API_KEY=\n", encoding="utf-8")
+    empty.write_text(f"{variable}=\n", encoding="utf-8")
 
-    assert load_secrets(tmp_path / "absent.env").openrouter_api_key is None
-    assert load_secrets(empty).openrouter_api_key is None
+    assert getattr(load_secrets(tmp_path / "absent.env"), variable.lower()) is None
+    assert getattr(load_secrets(empty), variable.lower()) is None
 
 
 # Criterion 4: paths do not depend on the working directory.

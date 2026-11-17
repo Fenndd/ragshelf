@@ -1,3 +1,9 @@
+from ragshelf.config import apply_environment, load_settings
+
+# Model libraries snapshot cache and telemetry variables when imported.
+# Initialize them at the application boundary before any transitive imports.
+apply_environment(load_settings())
+
 import streamlit as st
 from ragshelf.generation.rag_chain import generate_paragraph
 from ragshelf.store.dynamic_vector_store import DynamicVectorStore

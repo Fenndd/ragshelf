@@ -7,7 +7,7 @@ depends_on: [T003]
 area:
   - "src/ragshelf/parse/**"
   - "tests/parse/**"
-  - "data/README.md"
+  - "docs/data-layout.md"
   - "README.md"
 ---
 

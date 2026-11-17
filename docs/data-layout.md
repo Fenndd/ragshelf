@@ -1,6 +1,6 @@
 # data/
 
-Local documents and everything derived from them. Only this file is tracked by Git: the documents are third-party copyrighted material, and the derived files (extracted text, chunks, embeddings, logs) contain their text.
+The repository-root `data/` directory holds local documents and everything derived from them. Everything under `data/` is ignored by Git: the documents are third-party copyrighted material, and the derived files (extracted text, chunks, embeddings, logs) contain their text. This layout description lives under `docs/`.
 
 | Path | Contents |
 | --- | --- |

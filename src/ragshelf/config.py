@@ -3,8 +3,8 @@
 Settings come from, in order of precedence: `RAGSHELF_*` environment variables
 (nested fields joined with `__`, for example `RAGSHELF_RETRIEVAL__RRF_K=30`),
 `ragshelf.toml` at the repository root, and the defaults below, which carry
-the values decided in docs/decisions/0001-model-stack.md and
-0002-pipeline-architecture.md.
+the values decided in docs/decisions/ (0001 model stack, 0002 pipeline
+architecture, 0003 DeepSeek platform as the cloud route).
 
 Secrets are not settings: they are loaded separately by `load_secrets()` from
 the process environment or `.env`, never from `ragshelf.toml`, and never enter
@@ -120,7 +120,20 @@ class ProviderPreferences(_Section):
     sort: Literal["price", "throughput", "latency"] = "price"
 
 
-class CloudLLMConfig(_Section):
+class DeepSeekLLMConfig(_Section):
+    """DeepSeek platform, the default cloud provider (ADR 0003)."""
+
+    base_url: str = "https://api.deepseek.com"
+    model: str = "deepseek-flash"
+    # The platform enables thinking by default; RAG answers do not need it.
+    thinking: Literal["enabled", "disabled"] = "disabled"
+    timeout_seconds: float = Field(default=60.0, gt=0)
+    max_retries: int = Field(default=3, ge=0)
+
+
+class OpenRouterLLMConfig(_Section):
+    """OpenRouter with the ADR 0001 settings; kept as an alternative (ADR 0003)."""
+
     base_url: str = "https://openrouter.ai/api/v1"
     model: str = "deepseek/deepseek-v4.1-flash-1017"
     reasoning_effort: str = "none"
@@ -139,7 +152,10 @@ class LocalLLMConfig(_Section):
 
 class LLMConfig(_Section):
     route: Literal["cloud", "local"] = "cloud"
-    cloud: CloudLLMConfig = CloudLLMConfig()
+    # Which provider the cloud route uses.
+    cloud_provider: Literal["deepseek", "openrouter"] = "deepseek"
+    deepseek: DeepSeekLLMConfig = DeepSeekLLMConfig()
+    openrouter: OpenRouterLLMConfig = OpenRouterLLMConfig()
     local: LocalLLMConfig = LocalLLMConfig()
 
 
@@ -177,9 +193,10 @@ class Settings(BaseSettings):
 class Secrets(BaseSettings):
     """Credentials. Values are masked in `repr` and are never hashed."""
 
-    # `.env.example` ships the key with an empty value; treat that as "not set".
+    # `.env.example` ships the keys with empty values; treat that as "not set".
     model_config = SettingsConfigDict(extra="ignore", frozen=True, env_ignore_empty=True)
 
+    deepseek_api_key: SecretStr | None = None
     openrouter_api_key: SecretStr | None = None
 
 

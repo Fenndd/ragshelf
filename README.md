@@ -14,17 +14,17 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `src/ragshelf/embeddings/` | Embedding models (BGE, SciBERT, their weighted combination). |
 | `src/ragshelf/store/` | Vector index over processed documents (FAISS). |
 | `src/ragshelf/retrieval/` | Reranking of search results. |
-| `src/ragshelf/llm/` | LLM API client. |
+| `src/ragshelf/llm/` | Chat clients behind one interface: the DeepSeek platform (default cloud provider), OpenRouter (alternative cloud provider), and llama-server (local). |
 | `src/ragshelf/generation/` | Answer generation from retrieved chunks. |
 | `src/ragshelf/app/` | Streamlit user interface. |
 | `src/ragshelf/cli.py` | The `ragshelf` command-line interface; see [Commands](#commands). |
 | `src/ragshelf/config.py`, `ragshelf.toml` | Typed configuration and its file; see [Configuration](#configuration). |
 | `tests/` | pytest tests. |
 | `docs/engineering/` | Development process and AI-assistant policies. |
-| `data/` | Local documents and derived data; not published. See [data/README.md](data/README.md). |
+| `data/` | Local documents and derived data; not published. See [data layout](docs/data-layout.md). |
 | `models/` | Locally downloaded model weights and caches (MinerU, Hugging Face, GGUF, NLTK data); not published. |
 | `.tools/` | Project-local third-party binaries (llama.cpp `llama-server`); not published. |
-| `docs/decisions/` | Technical decisions (ADRs): the [model stack](docs/decisions/0001-model-stack.md) (accepted) and the [pipeline architecture](docs/decisions/0002-pipeline-architecture.md) (accepted). |
+| `docs/decisions/` | Technical decisions (ADRs): the [model stack](docs/decisions/0001-model-stack.md), the [pipeline architecture](docs/decisions/0002-pipeline-architecture.md), and the [DeepSeek platform as the cloud route](docs/decisions/0003-deepseek-platform-cloud-route.md) (all accepted). |
 | `docs/research/` | Research notes and reports behind the decisions. |
 | `docs/requirements.md` | Confirmed product requirements. |
 | `ROADMAP.md`, `tasks/` | Planned milestones and task files ([format](docs/engineering/TASK_FORMAT.md)). |
@@ -59,7 +59,9 @@ venv\Scripts\python.exe -m pytest -m slow   # tests that load real models
 
 Unknown keys are errors. Relative paths are taken from the repository root, whatever the working directory is. `config_hash()` returns a SHA-256 of all settings and identifies a pipeline setup.
 
-Secrets are not settings: `load_secrets()` reads them from the process environment or `.env`, and they are not part of the hash. The prototype modules do not use this configuration yet; each is switched over by the task that replaces it.
+The LLM route is `llm.route` (`cloud` or `local`); the cloud route uses the provider named by `llm.cloud_provider`: `deepseek` (default, [ADR 0003](docs/decisions/0003-deepseek-platform-cloud-route.md)) or `openrouter`.
+
+Secrets are not settings: `load_secrets()` reads `DEEPSEEK_API_KEY` and `OPENROUTER_API_KEY` from the process environment or `.env`, and they are not part of the hash. Only the key of the provider in use is needed. The remaining prototype modules are switched over as their replacement tasks are implemented.
 
 ## Dependencies
 

@@ -15,7 +15,7 @@ area:
   - "pyproject.toml"
   - "requirements.txt"
   - "README.md"
-  - "data/README.md"
+  - "docs/data-layout.md"
   - "docs/decisions/0001-model-stack.md"
 ---
 

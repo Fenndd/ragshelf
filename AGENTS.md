@@ -22,7 +22,7 @@ Do not read all documentation automatically. Choose the relevant sources:
 | --- | --- |
 | Continuing work, handoff between sessions | [STATUS.md](STATUS.md), [ROADMAP.md](ROADMAP.md), the active task in `tasks/`, current diff |
 | What the product must do | [docs/requirements.md](docs/requirements.md) |
-| Where code, scripts, data, and models live | [README.md](README.md) "Layout", [data/README.md](data/README.md) |
+| Where code, scripts, data, and models live | [README.md](README.md) "Layout", [data layout](docs/data-layout.md) |
 | Choosing or changing models, parsers, or runtimes | [docs/decisions/](docs/decisions/) (start with [0001-model-stack.md](docs/decisions/0001-model-stack.md)) |
 | Pipeline architecture: storage, identity, chunking, layering, evaluation | [0002-pipeline-architecture.md](docs/decisions/0002-pipeline-architecture.md) |
 | Creating or changing tasks, milestones, or the roadmap | [TASK_FORMAT.md](docs/engineering/TASK_FORMAT.md) |

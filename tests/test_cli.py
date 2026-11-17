@@ -1,3 +1,4 @@
+import importlib
 import subprocess
 import sys
 
@@ -38,6 +39,11 @@ def test_unknown_subcommand_is_a_usage_error(capsys):
 
     assert excinfo.value.code == 2
     assert "invalid choice" in capsys.readouterr().err
+
+
+def test_importing_the_module_entry_point_does_not_run_the_cli():
+    # A package walk imports every module; that must not start the CLI.
+    importlib.import_module("ragshelf.__main__")
 
 
 def test_module_entry_point_matches_the_console_script():

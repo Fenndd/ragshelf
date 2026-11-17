@@ -1,10 +1,7 @@
 import numpy as np
 from sentence_transformers import CrossEncoder
-import os
-from ragshelf.llm.deepseek_llm import DeepSeekLLM
-from dotenv import load_dotenv
-
-load_dotenv()
+from ragshelf.config import load_settings
+from ragshelf.llm import create_chat_client
 
 class Reranker:
     def __init__(self, method: str = "cross-encoder"):
@@ -14,10 +11,8 @@ class Reranker:
             self.model = CrossEncoder("cross-encoder/nli-deberta-v3-base")
 
         elif method == "llm":
-            api_key = os.getenv("DEEPSEEK_API_KEY")
-            if not api_key:
-                raise ValueError("DEEPSEEK_API_KEY не найден в .env")
-            self.llm = DeepSeekLLM(api_key=api_key)
+            # Raises LLMError if the configured route has no credentials.
+            self.llm = create_chat_client(load_settings())
 
         else:
             raise ValueError("Unknown rerank method. Use 'cross-encoder' or 'llm'.")
@@ -57,7 +52,9 @@ class Reranker:
             f"{context}"
         )
 
-        response = self.llm.generate(prompt)
+        response = self.llm.complete(
+            [{"role": "user", "content": prompt}], max_tokens=200, temperature=0.0
+        ).text
 
         # Парсим список индексов, например: "3, 1, 4, 2, 5"
         import re

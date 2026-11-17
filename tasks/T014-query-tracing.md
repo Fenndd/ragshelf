@@ -9,7 +9,7 @@ area:
   - "src/ragshelf/retrieve/**"
   - "src/ragshelf/cli.py"
   - "tests/test_trace.py"
-  - "data/README.md"
+  - "docs/data-layout.md"
 ---
 
 # T014 — Trace every query
@@ -33,7 +33,7 @@ Out of scope: A trace viewer.
 
 1. One `ragshelf search` appends exactly one valid JSON line with all listed fields.
 2. No secret appears in traces (test with a dummy key).
-3. data/README documents `data/traces/`.
+3. docs/data-layout.md documents `data/traces/`.
 
 ## Checks
 
