@@ -2,13 +2,14 @@
 
 Retrieval-augmented generation (RAG) over a personal library of text documents.
 
-The project began as an unfinished prototype of a knowledge base of scientific articles. It is being turned into a general RAG project for PDF and other text documents. Today only PDF extraction exists; the code is the original prototype moved into the layout below, minus the experiments and clustering modules that were on no working path.
+The project began as an unfinished prototype of a knowledge base of scientific articles. It is being turned into a general RAG project for PDF and other text documents. The new parse-only ingestion stage scans originals and caches local MinerU output. Indexing, retrieval, and the interface still contain prototype code and are replaced by later roadmap tasks.
 
 ## Layout
 
 | Path | Contents |
 | --- | --- |
 | `src/ragshelf/` | The Python package. |
+| `src/ragshelf/parse/` | Document scan, content hashes, local MinerU adapter, and checksummed parse cache. |
 | `src/ragshelf/loaders/` | Text extraction from documents (`universal_loader`: PDF). |
 | `src/ragshelf/processing/` | Cleaning and chunking. |
 | `src/ragshelf/embeddings/` | Embedding models (BGE, SciBERT, their weighted combination). |
@@ -29,7 +30,7 @@ The project began as an unfinished prototype of a knowledge base of scientific a
 | `docs/requirements.md` | Confirmed product requirements. |
 | `ROADMAP.md`, `tasks/` | Planned milestones and task files ([format](docs/engineering/TASK_FORMAT.md)). |
 
-Code reads data paths relative to the repository root, so run it from there. Nothing ingests documents at the moment: the prototype's script was removed, and `ragshelf ingest` is implemented in [T009](tasks/T009-ingest-command.md).
+Code reads data paths relative to the repository root, so run it from there. `ragshelf ingest --parse-only` runs the scan/cache stage. Full index ingestion is planned for [T009](tasks/T009-ingest-command.md). The migrated library no longer supplies the old `article_<N>/` inputs expected by the prototype store; use the parse-only path while its replacement is developed.
 
 ## Commands
 
@@ -40,7 +41,19 @@ venv\Scripts\ragshelf.exe --help        # the console script
 venv\Scripts\python.exe -m ragshelf --help   # the same through the module
 ```
 
-The CLI has four subcommands: `ingest`, `search`, `ask`, and `eval`. They are placeholders for now: each prints "not implemented yet" and exits with code 2 until its task in [ROADMAP.md](ROADMAP.md) is done.
+The CLI has four subcommands: `ingest`, `search`, `ask`, and `eval`. The parse-only ingestion stage is available:
+
+```powershell
+venv\Scripts\ragshelf.exe ingest --parse-only
+```
+
+It scans `paths.library` (default `data/library/`) recursively and writes to `paths.cache/parse` (default `data/cache/parse/`). Each supported original receives a path-based `doc_id` and SHA-256. Sidecar JSON, unsupported files, Office lock files, symbolic links, and junctions are skipped. Supported formats follow the installed MinerU registry; UTF-8 `.md` and `.txt` pass through without MinerU and use logical page index 0.
+
+Parsing runs locally in process. PDF/image inputs use MinerU's `standard` tier; Office, HTML, and EPUB use the installed kit's native `flash` dispatch. The adapter disables remote VLM use and rejects enabled LLM-aided remote features. HTML identity includes its source location and the local resources actually consumed by the native converter. Cache identity includes the source bytes, format, parser/runtime versions, and parser/render settings; changing embedding or retrieval settings does not invalidate parsing.
+
+The command prints per-document cache hit, parsed, or failed status and a total. Exit 0 means no failures; exit 1 means a batch or document failure. A valid cache hit verifies bundle checksums and does not load the MinerU model runtime. A miss parses a source snapshot, validates output and unchanged inputs, and publishes the completed bundle; runtime ownership and GPU cache are released after a parsing batch. See [data layout](docs/data-layout.md) for artifacts and [T005](tasks/T005-document-scan-and-parse-cache.md) for verification and current limitations.
+
+Bare `ingest`, `search`, `ask`, and `eval` remain placeholders: they print "not implemented yet" and exit with code 2 until their tasks in [ROADMAP.md](ROADMAP.md) are implemented.
 
 Tests use pytest, installed by the `dev` extra (`pip install -e ".[dev]"`; already pinned in `requirements.txt`):
 

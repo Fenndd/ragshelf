@@ -16,9 +16,9 @@ Exit criteria:
 | [T001](tasks/T001-remove-dead-prototype-code.md) | Remove dead prototype code | — | done |
 | [T002](tasks/T002-cli-and-test-harness.md) | Add the CLI entry point and test harness | T001 | done |
 | [T003](tasks/T003-typed-configuration.md) | Add typed configuration | T002 | done |
-| [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | review |
+| [T004](tasks/T004-llm-clients.md) | Replace the LLM client with cloud and local clients | T003 | done |
 
-T004 rework was committed locally on 2026-11-17: T004-REV-01, T004-REV-02, and T004-FOLLOWUP-01 are resolved; see [T004's resolution evidence](tasks/T004-llm-clients.md#rework-result--2026-11-17) and the preserved [original review](docs/reviews/T004-2026-11-16.md). T004 remains `review`, awaiting user acceptance; M1 is not accepted. The commit has not been pushed.
+T004 was accepted by the user on 2026-11-17 after its rework resolved T004-REV-01, T004-REV-02, and T004-FOLLOWUP-01. M1 exit criteria are met; the user instructed continuation with T005 in M2. See [T004's acceptance](tasks/T004-llm-clients.md#acceptance--2026-11-17), [resolution evidence](tasks/T004-llm-clients.md#rework-result--2026-11-17), and the preserved [original review](docs/reviews/T004-2026-11-16.md). The local commit has not been pushed.
 
 ## M2 — Persistent incremental index
 
@@ -33,11 +33,13 @@ Exit criteria:
 
 | Task | Title | Depends on | Status |
 | --- | --- | --- | --- |
-| [T005](tasks/T005-document-scan-and-parse-cache.md) | Add the document scan and the parse cache | T003 | planned |
+| [T005](tasks/T005-document-scan-and-parse-cache.md) | Add the document scan and the parse cache | T003 | review |
 | [T006](tasks/T006-document-model-and-metadata.md) | Build the document model and metadata extraction | T005 | planned |
 | [T007](tasks/T007-structure-aware-chunker.md) | Implement the structure-aware chunker | T006 | planned |
 | [T008](tasks/T008-embedder-and-index-store.md) | Add the embedder and the versioned index store | T007 | planned |
 | [T009](tasks/T009-ingest-command.md) | Wire the ingest command and remove the replaced prototype | T008 | planned |
+
+T005 is in `review`: on 2026-11-18 the user manually removed the 35 empty legacy directories, and verification confirmed their absence, preservation of all 42 migrated file hashes, and 21 cache hits without parsing or model-runtime imports. All five acceptance criteria are verified; user acceptance is pending. T006 remains unstarted until T005 is `done`. See [T005 Result](tasks/T005-document-scan-and-parse-cache.md#result).
 
 ## M3 — Retrieval with an evaluation baseline
 

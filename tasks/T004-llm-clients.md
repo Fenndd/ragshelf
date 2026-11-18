@@ -2,7 +2,7 @@
 id: T004
 title: Replace the LLM client with cloud and local clients
 milestone: M1
-status: review
+status: done
 depends_on: [T003]
 area:
   - "src/ragshelf/llm/**"
@@ -85,9 +85,13 @@ None.
 
 ## Result
 
+### Acceptance — 2026-11-17
+
+The user accepted T004 on 2026-11-17 and instructed continuation with T005. The acceptance closes T004 as `done`; the recorded M1 exit criteria are met, and work continues in M2. The rework and original review evidence below remain dated history. Acceptance does not authorize a push or the T005 data migration.
+
 ### Rework result — 2026-11-17
 
-The two findings and the user-decided follow-up from the [original independent review](../docs/reviews/T004-2026-11-16.md) are resolved. That report is preserved as the dated findings snapshot; this section records the subsequent resolution evidence. T004 remains `review`, committed locally but awaiting user acceptance. M1 is not accepted.
+The two findings and the user-decided follow-up from the [original independent review](../docs/reviews/T004-2026-11-16.md) are resolved. That report is preserved as the dated findings snapshot; this section records the subsequent resolution evidence. At the end of the rework, T004 remained `review`, committed locally but awaiting user acceptance; M1 was not yet accepted. The later acceptance above supersedes that status.
 
 | ID | Resolution and verification |
 | --- | --- |
@@ -113,11 +117,11 @@ At the end of the rework session, no files had been staged and no commit or push
 
 Delegation: the import-ordering review was requested at **Tier 4, GPT-6 Astra / high**, because library import ordering affects cache initialization. Mechanical verification and the documentation relocation were requested at **Tier 1, GPT-6 Luna / max**, using specified commands and replacements. This bounded task/status record update was requested at **Tier 2, GPT-6.1 Sol / medium**, with the contract and check results supplied. The main agent inspected the resulting files/diffs and integrated the source, regression test, and area changes. Actual execution settings and token metrics were not exposed and are not claimed; the test durations above are reported check results, not total worker time.
 
-Limitations: no new live cloud or local-model request was made in this rework session; the successful live requests in the original review remain evidence dated 2026-11-16. The new test verifies bare application import, cache selection, and telemetry opt-out state; it does not exercise a full Streamlit server, PDF processing, model download, or actual telemetry transmission. OpenRouter's live endpoint remains unverified. T005 still requires M1 acceptance and confirmation of the data migration; relocating the documentation does not authorize that migration.
+Limitations: no new live cloud or local-model request was made in this rework session; the successful live requests in the original review remain evidence dated 2026-11-16. The new test verifies bare application import, cache selection, and telemetry opt-out state; it does not exercise a full Streamlit server, PDF processing, model download, or actual telemetry transmission. OpenRouter's live endpoint remains unverified. At the end of the rework, T005 still required M1 acceptance and confirmation of the data migration. M1 acceptance is now recorded above; the migration remains subject to separate user confirmation.
 
 ### Earlier implementation and review record
 
-The following account is preserved as the implementation history. Its earlier closure statements do not supersede the latest review above; historical executions are not treated as independent evidence by that review.
+The following account is preserved as the implementation history. Its earlier closure statements do not supersede the acceptance and rework record above; historical executions are not treated as independent evidence by the dated review.
 
 What was done:
 

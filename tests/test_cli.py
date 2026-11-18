@@ -55,3 +55,25 @@ def test_module_entry_point_matches_the_console_script():
 
     assert result.returncode == 2
     assert "not implemented yet" in result.stderr
+
+
+def test_parse_only_caches_text_and_returns_errors(tmp_path, monkeypatch, capsys):
+    library = tmp_path / "library"
+    library.mkdir()
+    (library / "note.txt").write_text("Synthetic document", encoding="utf-8")
+    monkeypatch.setenv("RAGSHELF_PATHS__LIBRARY", str(library))
+    monkeypatch.setenv("RAGSHELF_PATHS__CACHE", str(tmp_path / "cache"))
+    assert main(["ingest", "--parse-only"]) == 0
+    assert "0 cache hits, 1 parsed, 0 failed" in capsys.readouterr().out
+    assert main(["ingest", "--parse-only"]) == 0
+    assert "1 cache hits, 0 parsed, 0 failed" in capsys.readouterr().out
+    (library / "bad.txt").write_bytes(b"\xff")
+    assert main(["ingest", "--parse-only"]) == 1
+    assert "1 failed" in capsys.readouterr().out
+
+
+def test_parse_only_missing_library_returns_nonzero(tmp_path, monkeypatch, capsys):
+    monkeypatch.setenv("RAGSHELF_PATHS__LIBRARY", str(tmp_path / "missing"))
+    monkeypatch.setenv("RAGSHELF_PATHS__CACHE", str(tmp_path / "cache"))
+    assert main(["ingest", "--parse-only"]) == 1
+    assert "FileNotFoundError" in capsys.readouterr().err

@@ -13,8 +13,10 @@ requires-python = ">=3.14"
 # Direct imports of src/ragshelf, unpinned.
 # The exact versions last installed are recorded in requirements.txt.
 dependencies = [
+    "docvortex",
     "faiss-cpu",
     "langdetect",
+    "mineru[torch]",
     "numpy",
     "pdfplumber",
     "pydantic",
@@ -29,7 +31,6 @@ dependencies = [
     # Installed for the selected model stack (docs/research/reports/);
     # not yet imported by the code.
     "bm25s",
-    "mineru[torch]",
 ]
 
 [project.optional-dependencies]
