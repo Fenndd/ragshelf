@@ -1,0 +1,6 @@
+# Optional destination .codex/config.toml fragment. Merge, never overwrite.
+# Verify these keys are supported and the destination trusts project settings.
+# This sets executor defaults only; explicit routing still selects exceptions.
+[agents]
+default_subagent_model = "gpt-6.1-sol"
+default_subagent_reasoning_effort = "medium"

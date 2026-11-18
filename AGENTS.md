@@ -16,7 +16,7 @@ Before executing each task, review the applicable repository instructions and th
 - Use the supplied skill names, descriptions, and paths for selection. Do not routinely rescan skill directories or read every skill. If the catalog is unavailable or appears incomplete, inspect discovery metadata in the relevant skill locations and report any unresolved discovery limitation.
 - Briefly identify the skills used and their purpose when starting to use them. If none applies, proceed under the repository instructions. Skill guidance does not override explicit user instructions or authorize additional actions.
 
-Do not read all documentation automatically. Choose the relevant sources:
+Do not read all documentation automatically. Choose relevant sources from the actual project. The paths below are conventions, not a claim that these files already exist:
 
 | When | Where to look |
 | --- | --- |
@@ -29,20 +29,20 @@ Do not read all documentation automatically. Choose the relevant sources:
 | Planning, verification, or handoff of a significant task | [DEVELOPMENT_WORKFLOW.md](docs/engineering/DEVELOPMENT_WORKFLOW.md) |
 | Delegation | [AI_ORCHESTRATION.md](docs/engineering/AI_ORCHESTRATION.md) |
 
-Add rows here for security and test strategy as those documents are created.
+Add rows here for security and test strategy as those documents are created. Do not invent requirements, decision records, setup commands, or checks to fill this table.
 
 ## Execution and Verification
 
-- Do not create source code, dependencies, or infrastructure as part of repository preparation alone. Implementation requires requirements and a separate development task.
+- Do not create source code, dependencies, or infrastructure as part of repository preparation alone. Implementation requires requirements and a separate development task. An explicit request to install or update agent infrastructure authorizes that infrastructure work.
 - A brief plan is enough for a small change; break complex work into verifiable results.
 - Choose checks based on the risk and substance of the changes. Use real project commands; if they do not exist yet, say so instead of inventing commands or successful results.
-- Completion is confirmed by meeting the task criteria and performing the checks. Distinguish between “verified,” “not verified,” and “check failed.”
-- Update related documents if facts change. Update `STATUS.md` when the phase, a significant result, an obstacle, or the next step changes.
+- Implementation completion is confirmed by meeting the task criteria and performing the checks. Distinguish between "verified," "not verified," and "check failed." For tracked tasks, completion enters `review`; `done` also requires acceptance under the project's explicit authority rules.
+- Update related documents if facts change. In projects using `STATUS.md`, update it when the phase, a significant result, an obstacle, or the next step changes.
 - In the final report, state the result, changed files and reasons, checks performed, and limitations. Support significant decisions with verifiable grounds.
 
 ## Subagents
 
-Delegate when it noticeably helps with independent verification, context separation, or parallel work. Read the orchestration policy before starting; in Codex and Claude Code, use the project-local `model-routing` skill for substantial delegation. Choose model and effort by the policy's tier rule; every subagent, in any client, reads the policy before starting its task, and every brief states its tier and this requirement; request compact findings or direct file changes with verifiable checks. Do not create fixed role profiles in advance. The current tool and session limitations take precedence.
+For substantial work, use the project-local `model-routing` skill in Codex and Claude Code and follow `docs/engineering/AI_ORCHESTRATION.md`. Identify coherent results to delegate before deciding which can run in parallel; dependent stages can be delegated sequentially. Keep the orchestrator responsible for coordination, evidence, and integration while working-default executors perform most substantive engineering work. Reserve stronger models for a justified narrow reasoning gap, then return routine work to the working default. Every brief states its tier, boundaries, criteria/checks, and the requirement to read the common policy sections. Return compact evidence or direct assigned-file changes. Do not set agent quotas, artificial limits, or permanent role profiles. Active tool and session limits take precedence.
 
 ## Project Skills
 
