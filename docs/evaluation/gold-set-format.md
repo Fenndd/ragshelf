@@ -32,7 +32,7 @@ The set lives in `data/eval/gold.jsonl`, which is not tracked: its queries and r
 These are the kinds of questions the user asks of the library (task T010):
 
 - `factual` — a specific fact stated in a document: a sample size, a result, a percentage, who proposed something.
-- `comparison` — a comparison across documents: how two or more documents differ or agree on a point. An answerable comparison cites at least two different documents.
+- `comparison` — a comparison across documents: how two or more documents differ or agree on a point. An answerable comparison cites at least two different documents. The type also covers multi-document corroboration and enumeration: an intent whose answer combines or confirms statements from at least two documents.
 - `definition` — what a term or construct means, as defined in a document.
 - `method` — how a study was done: design, sample, instruments, analysis, procedure.
 
@@ -40,6 +40,7 @@ These are the kinds of questions the user asks of the library (task T010):
 
 - Each of `ru`, `sk`, and `en` expresses the same intent as a researcher would naturally ask it in that language. They are independent phrasings, not word-for-word translations, so that the evaluation exercises query translation (ADR 0001) rather than lexical overlap.
 - Technical terms are written as speakers of that language use them; an English term may stay English where that is natural (for example an instrument's acronym).
+- Compound (two-part) questions are allowed, but the labeller flags them in `notes`; where the two parts have different evidence, splitting them into separate intents is preferred.
 - Queries do not name the page, and name a document only when a user would (for example "in the Replika study").
 - Validation checks that `ru` contains Cyrillic script, that `sk` and `en` contain none, and that `sk` is not a copy of `en`. It does not check language quality; the user's review does.
 
