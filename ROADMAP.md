@@ -33,13 +33,13 @@ Exit criteria:
 
 | Task | Title | Depends on | Status |
 | --- | --- | --- | --- |
-| [T005](tasks/T005-document-scan-and-parse-cache.md) | Add the document scan and the parse cache | T003 | review |
-| [T006](tasks/T006-document-model-and-metadata.md) | Build the document model and metadata extraction | T005 | planned |
+| [T005](tasks/T005-document-scan-and-parse-cache.md) | Add the document scan and the parse cache | T003 | done |
+| [T006](tasks/T006-document-model-and-metadata.md) | Build the document model and metadata extraction | T005 | done |
 | [T007](tasks/T007-structure-aware-chunker.md) | Implement the structure-aware chunker | T006 | planned |
 | [T008](tasks/T008-embedder-and-index-store.md) | Add the embedder and the versioned index store | T007 | planned |
 | [T009](tasks/T009-ingest-command.md) | Wire the ingest command and remove the replaced prototype | T008 | planned |
 
-T005 is in `review`: on 2026-11-18 the user manually removed the 35 empty legacy directories, and verification confirmed their absence, preservation of all 42 migrated file hashes, and 21 cache hits without parsing or model-runtime imports. All five acceptance criteria are verified; user acceptance is pending. T006 remains unstarted until T005 is `done`. See [T005 Result](tasks/T005-document-scan-and-parse-cache.md#result).
+T005 was accepted by the user on 2026-11-18 after all five acceptance criteria were verified (including the migration cleanup). T006 started on that date. See [T005 Result](tasks/T005-document-scan-and-parse-cache.md#result).
 
 ## M3 — Retrieval with an evaluation baseline
 
@@ -53,12 +53,14 @@ Exit criteria:
 
 | Task | Title | Depends on | Status |
 | --- | --- | --- | --- |
-| [T010](tasks/T010-gold-evaluation-set.md) | Build the gold evaluation set | T005 | planned |
-| [T011](tasks/T011-query-translation.md) | Add query translation to English | T004 | planned |
+| [T010](tasks/T010-gold-evaluation-set.md) | Build the gold evaluation set | T005 | done |
+| [T011](tasks/T011-query-translation.md) | Add query translation to English | T004 | done |
 | [T012](tasks/T012-hybrid-retrieval-and-search.md) | Add hybrid retrieval with RRF and the search command | T009, T011 | planned |
 | [T013](tasks/T013-reranker-and-model-lifecycle.md) | Add the reranker and the model lifecycle | T012 | planned |
 | [T014](tasks/T014-query-tracing.md) | Trace every query | T013 | planned |
 | [T015](tasks/T015-retrieval-evaluation.md) | Evaluate retrieval and record the baseline | T010, T014 | planned |
+
+T010 was accepted by the user and its branch merged locally on 2026-11-19. T011 was accepted after its scripted tests and 20-query cloud review; the local-model translation limitations remain recorded in [T011 Result](tasks/T011-query-translation.md#result).
 
 ## M4 — Grounded answers
 

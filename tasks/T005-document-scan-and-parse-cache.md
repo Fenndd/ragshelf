@@ -2,7 +2,7 @@
 id: T005
 title: Add the document scan and the parse cache
 milestone: M2
-status: review
+status: done
 depends_on: [T003]
 area:
   - "src/ragshelf/parse/**"
@@ -95,3 +95,7 @@ Implementation, approved migration, and independent review were requested at **T
 Independent review was requested at **Tier 4, GPT-6 Astra / high**, because incorrect cache identity can reuse stale persisted data. It found an HTML/CSS identity defect (P1): the first fix tracks the native converter's consumed dependencies and source context. Two P2 follow-ups were also corrected: a remote HTML base no longer causes an unused local file to invalidate the cache, and hit validation now rechecks input/resource identity. The original installed-MinerU HTML reproduction then confirmed distinct correct source contexts, two unchanged hits, and one parse plus one hit after editing one dependency. The final independent review found no remaining supported defects and passed the focused 38-test suite. Its scope covered source modules, CLI, tests, and installed APIs; it did not independently execute the full-library GPU parse or migration. The HTML dependency adapter uses a private DocVortex conversion seam; the DocVortex version is part of the cache key and native-runtime tests cover the current installed path. This bounded documentation update was requested at **Tier 2, GPT-6.1 Sol / medium** with the implementation/check contract supplied. Requested model/effort settings are recorded; execution settings and workflow token metrics are not exposed.
 
 Remaining at the 2026-11-17 checkpoint: resolve the automatic-review tool limitation for the 35 empty legacy directories, verify criterion 4, then submit T005 for user review. That cleanup was subsequently verified on 2026-11-18 as recorded above. No further broad check cycle is pending. T006 depends on T005 being `done` and has not started. No commit or push was performed as part of T005.
+
+### Acceptance — 2026-11-18
+
+The user accepted T005 in chat on 2026-11-18 ("Принять T005") after the implementation-completion evidence above: all five acceptance criteria verified, the independent review closed, and the migration cleanup confirmed. T005 is `done`. This unblocks T006; T010 stays `planned` because of its own open question about who writes the gold-set queries.

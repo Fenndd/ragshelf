@@ -41,7 +41,7 @@ venv\Scripts\ragshelf.exe --help        # the console script
 venv\Scripts\python.exe -m ragshelf --help   # the same through the module
 ```
 
-The CLI has four subcommands: `ingest`, `search`, `ask`, and `eval`. The parse-only ingestion stage is available:
+The CLI has five subcommands: `ingest`, `search`, `ask`, `eval`, and `inspect`. `inspect` works over the parse cache without loading any model: `ragshelf inspect <doc_id>` prints a document's metadata (with the source of each value) and its heading outline, and `ragshelf inspect --all` prints one full record per library document. It needs the cache from the stage below. The parse-only ingestion stage is available:
 
 ```powershell
 venv\Scripts\ragshelf.exe ingest --parse-only

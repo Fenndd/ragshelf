@@ -26,6 +26,12 @@ One typed configuration (pydantic-settings) read from `ragshelf.toml` at the rep
 - Parser output is cached under `data/cache/parse/<content_hash>/<parser-version-and-settings>/`, so changing the chunker or embedder never re-runs MinerU.
 - Chunk ID: `<doc_id>#<ordinal>-<first 8 hex of sha256(text)>`.
 
+### Document-language metadata — clarification accepted 2026-11-19
+
+The user confirmed that document language is optional metadata supplied only by the document's sidecar (`language` or `lang`). Without a usable sidecar language value, it stays unknown (`None`); no automatic document-language labels are generated. An explicit value has sidecar provenance, and unknown language has no source. This clarification concerns document metadata; query-language handling remains governed by ADR 0001.
+
+R2 requires multilingual support and R6 requires automatic title, authors, year and DOI extraction; neither requires automatic document-language detection. Sidecar-only metadata avoids inferred labels on ambiguous or mixed-language content and preserves the existing optional language field. The [options analysis](../reviews/T006-language-detection-options-2026-11-19.md) records the alternatives and their limitations before this decision. This confirms the planned removal of `langdetect` below; resolving the remaining legacy chunker import and dependency removal follows the existing task plan. Recording this decision does not establish implementation or verification completion.
+
 ### Storage
 
 - Dense index: LanceDB, embedded, one table holding chunk ID, text, embedded text, vector, and metadata (doc_id, title, authors, year, DOI, heading path, page span, language).

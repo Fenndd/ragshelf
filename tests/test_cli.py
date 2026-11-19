@@ -6,7 +6,8 @@ import pytest
 
 from ragshelf.cli import main
 
-SUBCOMMANDS = ["ingest", "search", "ask", "eval"]
+SUBCOMMANDS = ["ingest", "search", "ask", "eval", "inspect"]
+PLACEHOLDERS = ["ingest", "search", "ask", "eval"]
 
 
 def test_help_lists_the_subcommands(capsys):
@@ -19,7 +20,7 @@ def test_help_lists_the_subcommands(capsys):
         assert name in out
 
 
-@pytest.mark.parametrize("argv", [[name] for name in SUBCOMMANDS] + [["search", "x"]])
+@pytest.mark.parametrize("argv", [[name] for name in PLACEHOLDERS] + [["search", "x"]])
 def test_subcommand_is_not_implemented(argv, capsys):
     assert main(argv) == 2
     assert "not implemented yet" in capsys.readouterr().err
